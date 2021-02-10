@@ -20,11 +20,7 @@ class ImageHandler {
     const edits = request.edits;
     const cropping = request.cropping;
 
-    logger.log("cropping");
-    logger.log(cropping);
-
-    logger.log("edits");
-    logger.log(edits);
+    logger.log("Image process parameters", { cropping, edits });
 
     const hasEdits = edits !== undefined && Object.keys(edits).length > 0;
     const hasCropping = cropping !== undefined;
