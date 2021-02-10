@@ -11,7 +11,7 @@ const ImageRequest = require("./image-request.js");
 const ImageHandler = require("./image-handler.js");
 
 exports.handler = async (event) => {
-  logger.log(event);
+  logger.log("Cloudwatch Event", event);
   const imageRequest = new ImageRequest(s3, secretsManager);
   const imageHandler = new ImageHandler(s3, rekognition);
   const isAlb =
@@ -19,7 +19,7 @@ exports.handler = async (event) => {
 
   try {
     const request = await imageRequest.setup(event);
-    logger.log(request);
+    logger.log("Image Request", request);
 
     let now = Date.now();
     if (request.Expires && request.Expires.getTime() < now) {
@@ -62,7 +62,7 @@ exports.handler = async (event) => {
         }
       }
 
-      logger.log({
+      logger.log("Lambda return value", {
         statusCode: 200,
         isBase64Encoded: true,
         headers: headers,
@@ -76,7 +76,7 @@ exports.handler = async (event) => {
       };
     }
   } catch (err) {
-    logger.error(err);
+    logger.error(err.message, err);
 
     // Default fallback image
     if (
@@ -112,7 +112,7 @@ exports.handler = async (event) => {
     }
 
     if (err.status) {
-      logger.log({
+      logger.log("Lambda return value", {
         statusCode: err.status,
         isBase64Encoded: false,
         headers: getResponseHeaders(true, isAlb),
