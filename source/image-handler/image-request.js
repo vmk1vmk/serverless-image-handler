@@ -124,7 +124,7 @@ class ImageRequest {
 
       return this;
     } catch (err) {
-      logger.error(err);
+      logger.error(err.message, err);
       throw err;
     }
   }
