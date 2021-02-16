@@ -21,8 +21,8 @@
     "sinon": "^9.0.3"
   },
   "scripts": {
-    "pretest": "npm run build:init && npm install",
-    "test": "jest test/*.spec.js --coverage --silent",
+    "nopretest": "npm run build:init && npm install",
+    "test": "jest ./**/*.spec.js --coverage --silent",
     "build:init": "rm -rf package-lock.json dist/ node_modules/",
     "build:zip": "zip -rq image-handler.zip .",
     "build:dist": "mkdir dist && mv image-handler.zip dist/",
